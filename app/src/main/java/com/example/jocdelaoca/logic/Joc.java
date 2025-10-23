@@ -20,6 +20,45 @@ public class Joc implements Resultat {
         this.scanner = new Scanner(System.in);
     }
 
+
+    public void runGame() {
+        System.out.println("Welcome!");
+        afegirJugadors(); // Configuración de jugadores
+
+        boolean stillPlaying = true;
+
+        while (stillPlaying) {
+            System.out.println("\n--- New game ---");
+            play(); // Ejecuta una partida hasta que haya un ganador
+
+            System.out.print("Play again? (Yes/No)");
+
+            // Usamos next() para leer solo la siguiente palabra, como en el Kotlin original.
+            String response = scanner.next().trim().toLowerCase();
+
+            if (response.equals("yes")) {
+                System.out.println("\nHere we go");
+                reiniciarPartida(true, null);
+            } else {
+                stillPlaying = false;
+            }
+        }
+
+        System.out.println("\n--GAMES SUMMARY--");
+        Ranking(); // imprimir ranking
+        System.out.println("\nSee you next time!");
+
+        closeScanner();
+    }
+
+    private void closeScanner() {
+        if (scanner != null) {
+            scanner.close();
+        }
+    }
+
+
+
     public void afegirJugadors(){
         System.out.print("Number of players (2-4): ");
         boolean continuar = false;
@@ -106,7 +145,7 @@ public class Joc implements Resultat {
 
         while (!hiHaGuanyador) {
             for (Jugador j : jugadors) {
-                System.out.println("\nTurn: " + j.getNickname() + " (Current position: " + j.getCasellaActual() + ")");
+                System.out.println("\nTurn: " + j.getNickname());
                 System.out.print("Press Enter to roll the dice...");
                 scanner.nextLine();
 
@@ -155,7 +194,7 @@ public class Joc implements Resultat {
             reiniciarPartida(false, j);
             return true; // ha caído en la muerte
         }
-        return false; // sigue normal
+        return false;
     }
 
 
