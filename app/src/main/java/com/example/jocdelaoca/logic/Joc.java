@@ -111,6 +111,7 @@ public class Joc implements Resultat {
                 scanner.nextLine();
 
                 int tirada = tirarDau();
+
                 System.out.println(j.getNickname() + " rolled a " + tirada);
 
                 int posicioAnterior = j.getCasellaActual();
